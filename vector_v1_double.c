@@ -54,11 +54,12 @@ void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i)
 	if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
 	p_s_vector_v1_double vector = vector_v1_double_alloc(p_vector->size - 1);
 	int replaced = 0;
-	for (size_t j = 0; j < i; j--) {
+	for (size_t j = 0; j < p_vector->size; j++) {
 		if (i == j) replaced++;
-		else vector->elements[j] = p_vector->elements[j + replaced];
+		else vector->elements[j] = p_vector->elements[j - replaced];
 	}
-	p_vector = vector;
+	p_vector->elements = vector->elements;
+	p_vector->size = vector->size;
 }
 
 void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v)

@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	printf("Test vector_v1_double_alloc(5) :\n\tExpexted : [0.0, 0.0, 0.0, 0.0, 0.0]\n\tGot\t : ");
 	p_s_vector_v1_double vector = vector_v1_double_alloc(5);
 	affiche_vector(vector);
-
+	
 	//Test set
 	printf("Test vector_v1_double_set :\n\tExpected : [5.0, 4.0, 3.0, 2.0, 1.0]\n\tGot\t : ");
 	vector_v1_double_set(vector, 0, 5.0);
@@ -32,4 +32,10 @@ int main(int argc, char *argv[])
 	vector_v1_double_insert(vector, 0, 12.0);
 	vector_v1_double_insert(vector, 4, 0.0);
 	affiche_vector(vector); 
+	
+	//Test erase
+	printf("Test vector_v1_double_erase :\n\tExpected : [5.0, 4.0, 4.0, 2.0, 1.0]\n\tGot\t : ");
+	vector_v1_double_erase(vector, 0);
+	vector_v1_double_erase(vector, 3);
+	affiche_vector(vector);
 }
