@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <limits.h>
-
+#include <stdio.h>
 #include "vector_v1_double.h"
 
 #ifndef __VECTOR_V1_DOUBLE__
@@ -37,14 +37,16 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v)
 	if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
 	p_s_vector_v1_double vector = vector_v1_double_alloc(p_vector->size + 1);
 	int replaced = 0;
-	for (size_t j = 0; j < i; j++) {
-		if (i == j) {
+	for (size_t j = 0; j < vector->size; j++) {
+		if (i == j && replaced == 0) {
 			replaced++;
 			vector->elements[j] = v;
+			j--;
 		}
 		else vector->elements[j + replaced] = p_vector->elements[j];
-	}	
-	p_vector = vector;
+	}
+	p_vector->elements = vector->elements;
+	p_vector->size = vector->size;
 }
 
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i)
