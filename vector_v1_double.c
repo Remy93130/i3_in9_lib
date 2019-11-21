@@ -41,9 +41,8 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v)
 		if (i == j && replaced == 0) {
 			replaced++;
 			vector->elements[j] = v;
-			j--;
 		}
-		else vector->elements[j + replaced] = p_vector->elements[j];
+		else vector->elements[j] = p_vector->elements[j - replaced];
 	}
 	p_vector->elements = vector->elements;
 	p_vector->size = vector->size;
@@ -56,7 +55,7 @@ void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i)
 	int replaced = 0;
 	for (size_t j = 0; j < p_vector->size; j++) {
 		if (i == j) replaced++;
-		else vector->elements[j] = p_vector->elements[j - replaced];
+		else vector->elements[j - replaced] = p_vector->elements[j];
 	}
 	p_vector->elements = vector->elements;
 	p_vector->size = vector->size;
