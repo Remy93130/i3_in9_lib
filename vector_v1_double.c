@@ -35,30 +35,35 @@ double get(p_s_vector_v1_double p_vector, size_t i)
 void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v)
 {
 	if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
-	p_s_vector_v1_double vector = vector_v1_double_alloc(p_vector->size + 1);
+	int new_size = p_vector->size + 1;
+	double* new_elements = malloc(sizeof(double) * new_size);
 	int replaced = 0;
-	for (size_t j = 0; j < vector->size; j++) {
+	for (size_t j = 0; j < new_size; j++) {
 		if (i == j && replaced == 0) {
 			replaced++;
-			vector->elements[j] = v;
+			new_elements[j] = v;
 		}
-		else vector->elements[j] = p_vector->elements[j - replaced];
+		else new_elements[j] = p_vector->elements[j - replaced];
 	}
-	p_vector->elements = vector->elements;
-	p_vector->size = vector->size;
+	vector_v1_double_clear(p_vector);
+	p_vector->elements = new_elements;
+	p_vector->size = new_size;
 }
 
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i)
 {
 	if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
-	p_s_vector_v1_double vector = vector_v1_double_alloc(p_vector->size - 1);
+	int new_size = p_vector->size - 1;
+	double* new_elements = malloc(sizeof(double) * new_size);
+	// p_s_vector_v1_double vector = vector_v1_double_alloc(p_vector->size - 1);
 	int replaced = 0;
 	for (size_t j = 0; j < p_vector->size; j++) {
 		if (i == j) replaced++;
-		else vector->elements[j - replaced] = p_vector->elements[j];
+		else new_elements[j - replaced] = p_vector->elements[j];
 	}
-	p_vector->elements = vector->elements;
-	p_vector->size = vector->size;
+	vector_v1_double_clear(p_vector);
+	p_vector->elements = new_elements;
+	p_vector->size = new_size;
 }
 
 void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v)
