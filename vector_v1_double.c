@@ -4,6 +4,7 @@
 #include "vector_v1_double.h"
 
 #ifndef __VECTOR_V1_DOUBLE__
+#define __VECTOR_V1_DOUBLE__
 
 p_s_vector_v1_double vector_v1_double_alloc(size_t n)
 {
@@ -73,7 +74,7 @@ void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v)
 
 void vector_v1_double_pop_back(p_s_vector_v1_double p_vector)
 {
-	vector_v1_double_erase(p_vector, p_vector->size);
+	vector_v1_double_erase(p_vector, p_vector->size - 1);
 }
 
 void vector_v1_double_clear(p_s_vector_v1_double p_vector)
