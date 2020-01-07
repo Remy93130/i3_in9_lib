@@ -34,18 +34,18 @@ int main(int argc, char *argv[])
 	affiche_vector(vector);
 	
 	// Test erase
-	printf("Test vector_v1_double_erase :\n\tExpected : [5.0, 4.0, 4.0, 2.0, 1.0]\n\tGot\t : ");
+	printf("Test vector_v1_double_erase :\n\tExpected : [5.0, 4.0, 3.0, 2.0, 1.0]\n\tGot\t : ");
 	vector_v1_double_erase(vector, 0);
 	vector_v1_double_erase(vector, 3);
 	affiche_vector(vector);
 
 	// Test push
-	printf("Test vector_v1_double_push_back :\n\tExpected : [5.0, 4.0, 4.0, 2.0, 1.0, 42.0]\n\tGot\t : ");
+	printf("Test vector_v1_double_push_back :\n\tExpected : [5.0, 4.0, 3.0, 2.0, 1.0, 42.0]\n\tGot\t : ");
 	vector_v1_double_push_back(vector, 42.0);
 	affiche_vector(vector);
 
 	// Test pop
-	printf("Test vector_v1_double_pop_back :\n\tExpected : [5.0, 4.0, 4.0, 2.0, 1.0]\n\tGot\t : ");
+	printf("Test vector_v1_double_pop_back :\n\tExpected : [5.0, 4.0, 3.0, 2.0, 1.0]\n\tGot\t : ");
 	vector_v1_double_pop_back(vector);
 	affiche_vector(vector);
 
