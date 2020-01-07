@@ -3,6 +3,8 @@
 #ifndef __RANDOM_H__
 #define __RANDOM_H__
 
+void init_seed();
+
 double random_double(double a, double b);
 
 float random_float(float a, float b);
