@@ -120,4 +120,7 @@ int main(int argc, char const *argv[])
         bubble_sort(vector, n);
     else
         printf("Test unknown\n");
+    
+    vector_v1_double_free(vector);
+
 }
