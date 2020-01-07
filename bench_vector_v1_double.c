@@ -123,4 +123,5 @@ int main(int argc, char const *argv[])
     
     vector_v1_double_free(vector);
 
+    return 0;
 }
