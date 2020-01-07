@@ -1,9 +1,6 @@
 #include "random.h"
 #include <stdlib.h>
 
-#ifndef __RANDOM__
-#define __RANDOM__
-
 // ((double)rand()) / (RAND_MAX + 1) => [0,1[
 
 double random_double(double a, double b)
@@ -39,5 +36,3 @@ void random_init_string(unsigned char * c, size_t n)
 	}
 	c[n] = '\0';
 }
-
-#endif

@@ -4,6 +4,13 @@
 #include <stddef.h>
 #include <string.h>
 
+/**
+ * Echange la position de la valeur situe a la ieme
+ * valeur du vecteur par la ieme + 1.
+ * Utilisé par le bubble sort.
+ * @param p_vector Le vector ou l'on fait l'operation.
+ * @param i        L'index.
+ */
 void _swap(p_s_vector_v1_double p_vector, size_t i)
 {
     double index_value = get(p_vector, i);
@@ -11,6 +18,11 @@ void _swap(p_s_vector_v1_double p_vector, size_t i)
     vector_v1_double_set(p_vector, i + 1, index_value);
 }
 
+/**
+ * Bubble sort recursif sur un vecteur.
+ * @param p_vector  Le vecteur a trier.
+ * @param list_size La longueur restante a trier.
+ */
 void _sort(p_s_vector_v1_double p_vector, size_t list_size)
 {
     if (list_size == 1) return;

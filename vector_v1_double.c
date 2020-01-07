@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include "vector_v1_double.h"
 
-#ifndef __VECTOR_V1_DOUBLE__
-#define __VECTOR_V1_DOUBLE__
-
 p_s_vector_v1_double vector_v1_double_alloc(size_t n)
 {
     p_s_vector_v1_double vector = malloc(sizeof(p_s_vector_v1_double));
@@ -91,5 +88,3 @@ size_t vector_v1_double_size(p_s_vector_v1_double p_vector)
 {
     return p_vector->size;
 }
-
-#endif
