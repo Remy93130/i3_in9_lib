@@ -15,10 +15,10 @@ void _affiche_vector(p_s_vector_v2_double vector)
 
 p_s_vector_v2_double vector_v2_double_alloc(size_t n)
 {
-    p_s_vector_v2_double vector = malloc(sizeof(p_s_vector_v2_double));
+    p_s_vector_v2_double vector = malloc(sizeof(s_vector_v2_double));
     if (vector == NULL) return NULL;
-    vector->elements = malloc(sizeof(double) * n);
-    vector->capacity = 6;
+    vector->elements = malloc(sizeof(double) * n * n);
+    vector->capacity = n * n;
     for (size_t i = 0; i < n; i++) vector->elements[i] = 0.0;
     vector->size = n;
     return vector;
@@ -50,7 +50,7 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v)
     int replaced = 0;
     double element_saved = -1;
     double element_selected;
-    for (size_t j = 0; j < p_vector->size; j++) {
+    for (size_t j = 0; j < p_vector->size - 1; j++) {
         element_selected = element_saved;
         element_saved = p_vector->elements[j];
         if (i == j) replaced = 1;
@@ -63,6 +63,8 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     p_vector->size -= 1;
+    vector_v2_double_clear(p_vector);
+    printf("freed\n");
     int replaced = 0;
     for (size_t j = 0; j < p_vector->size; j++) {
         if (i == j) replaced = 1;
