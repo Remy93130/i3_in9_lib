@@ -22,11 +22,17 @@ bench_vector_v1_double.o : bench_vector_v1_double.c
 test_vector_v2_double : test_vector_v2_double.o vector_v2_double.o
 	gcc vector_v2_double.o test_vector_v2_double.o -g -o test_vector_v2_double
 
+bench_vector_v2_double : bench_vector_v2_double.o vector_v2_double.o random.o
+	gcc bench_vector_v2_double.o vector_v2_double.o random.o -g -o bench_vector_v2_double
+
 test_vector_v2_double.o : test_vector_v2_double.c
 	gcc test_vector_v2_double.c -c -g -o test_vector_v2_double.o
 
 vector_v2_double.o : vector_v2_double.c vector_v2_double.h
 	gcc vector_v2_double.c -c -g -o vector_v2_double.o
+
+bench_vector_v2_double.o : bench_vector_v2_double.c
+	gcc bench_vector_v2_double.c -c -g -o bench_vector_v2_double.o
 
 # Random
 
