@@ -5,7 +5,7 @@
 
 p_s_vector_v1_double vector_v1_double_alloc(size_t n)
 {
-    p_s_vector_v1_double vector = malloc(sizeof(p_s_vector_v1_double));
+    p_s_vector_v1_double vector = malloc(sizeof(s_vector_v1_double));
     if (vector == NULL) return NULL;
     vector->elements = malloc(sizeof(double) * n);
     for (size_t i = 0; i < n; i++) vector->elements[i] = 0.0;

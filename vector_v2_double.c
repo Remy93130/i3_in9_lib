@@ -50,7 +50,7 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v)
     int replaced = 0;
     double element_saved = -1;
     double element_selected;
-    for (size_t j = 0; j < p_vector->size - 1; j++) {
+    for (size_t j = 0; j < p_vector->size; j++) {
         element_selected = element_saved;
         element_saved = p_vector->elements[j];
         if (i == j) replaced = 1;
@@ -63,10 +63,8 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     p_vector->size -= 1;
-    vector_v2_double_clear(p_vector);
-    printf("freed\n");
     int replaced = 0;
-    for (size_t j = 0; j < p_vector->size; j++) {
+    for (size_t j = 0; j < p_vector->size + 1; j++) {
         if (i == j) replaced = 1;
         else if (replaced) p_vector->elements[j - replaced] = p_vector->elements[j];
     }
@@ -76,15 +74,13 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i)
 
 void _realloc_according_capacity(p_s_vector_v2_double p_vector, size_t new_capacity)
 {
-    printf("called with capacity %ld\n", new_capacity);
     size_t vector_size = p_vector->size;
     p_vector->capacity = new_capacity;
     double* new_elements = malloc(sizeof(double) * p_vector->capacity);
     if (new_elements == NULL) printf("KO\n");
-    printf("malloc ok\n");
     for (int j = 0; j < vector_size; j++)
         new_elements[j] = p_vector->elements[j];
-    // vector_v2_double_clear(p_vector);
+    vector_v2_double_clear(p_vector);
     p_vector->elements = new_elements;
     p_vector->size = vector_size;
 }
