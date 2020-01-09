@@ -47,8 +47,8 @@ test_random.o : test_random.c
 
 # My Struct
 
-test_my_struct : test_my_struct.o my_struct.o
-	gcc test_my_struct.o my_struct.o -g -o test_my_struct
+test_my_struct : test_my_struct.o my_struct.o random.o
+	gcc test_my_struct.o my_struct.o random.o -g -o test_my_struct
 
 my_struct.o : my_struct.c my_struct.h
 	gcc my_struct.c -c -g -o my_struct.o
@@ -57,4 +57,8 @@ test_my_struct.o : test_my_struct.c
 	gcc test_my_struct.c -c -g -o test_my_struct.o
 
 clean :
-	rm -f *.o test_vector_v1_double test_random bench_vector_v1_double test_vector_v2_double test_my_struct
+	rm -f *.o \
+		test_vector_v1_double \
+		test_random bench_vector_v1_double \
+		test_vector_v2_double bench_vector_v2_double \
+		test_my_struct
