@@ -110,8 +110,8 @@ int main(int argc, char const *argv[])
     }
     size_t init_size, n;
 
-    sscanf(argv[2], "%ld", &init_size);
-    sscanf(argv[3], "%ld", &n);
+    sscanf(argv[2], "%d", &init_size);
+    sscanf(argv[3], "%d", &n);
 
     printf("\nStart bench\ntest: %s\ninit_size: %d\nn: %d\n", argv[1], init_size, n);
 

@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     printf("Test vector_v2_double_empty :\n\tExpected : 0\n\tGot\t : %d\n", vector_v2_double_empty(vector));
 
     // Test size
-    printf("Test vector_v2_double_empty :\n\tExpected : 5\n\tGot\t : %ld\n", vector_v2_double_size(vector));
+    printf("Test vector_v2_double_empty :\n\tExpected : 5\n\tGot\t : %d\n", vector_v2_double_size(vector));
 
     vector_v2_double_free(vector);
 }

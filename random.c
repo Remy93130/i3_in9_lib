@@ -1,5 +1,6 @@
 #include "random.h"
 #include <stdlib.h>
+#include <time.h>
 
 // ((double)rand()) / (RAND_MAX + 1) => [0,1[
 // (type) ((b - a) * (rand() / (RAND_MAX + 1.0)) + a)
