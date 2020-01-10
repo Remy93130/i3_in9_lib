@@ -22,16 +22,34 @@ void my_struct_free(p_s_my_struct p_vector)
 
 void my_struct_randoms_init(p_s_my_struct p_vector)
 {
-    p_vector->number = random_double(0.0, 5000.0);
+    p_vector->number = random_double(0.0, 20.0);
     size_t size = random_size_t(0, 20);
     p_vector->string = malloc(sizeof(char) * size);
-    random_init_string(p_vector->string, size);
+    random_init_string(p_vector->string, size - 1);
 }
 
 void my_struct_copy(p_s_my_struct p_dest, p_s_my_struct p_src)
 {
     if (p_dest == NULL || p_src == NULL) return;
-    p_dest->string = malloc(sizeof(char) * strlen(p_src->string));
+    free(p_dest->string);
+    p_dest->string = malloc(sizeof(char) * strlen(p_src->string) + 1);
     strcpy(p_dest->string, p_src->string);
     p_dest->number = p_src->number;
+}
+
+int my_struct_cmp(p_s_my_struct p_vector_a, p_s_my_struct p_vector_b)
+{
+    if (p_vector_a->number > p_vector_b->number) return 1;
+    else if (p_vector_a->number < p_vector_b->number) return -1;
+
+    size_t len_vector_a = strlen(p_vector_a->string);
+    size_t len_vector_b = strlen(p_vector_b->string);
+    size_t min_size = (len_vector_a < len_vector_b)? len_vector_a : len_vector_b;
+
+    for (size_t i = 0; i < min_size; ++i)
+    {
+        if (p_vector_a->string[i] > p_vector_b->string[i]) return 1;
+        else if (p_vector_a->string[i] < p_vector_b->string[i]) return -1;
+    }
+    return 0;
 }
