@@ -1,5 +1,8 @@
 *.exe
 *.o
 test_vector_v1_double
+test_vector_v2_double
 bench_vector_v1_double
+bench_vector_v2_double
 test_random
+test_my_struct

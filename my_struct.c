@@ -24,8 +24,8 @@ void my_struct_randoms_init(p_s_my_struct p_vector)
 {
     p_vector->number = random_double(0.0, 20.0);
     size_t size = random_size_t(0, 20);
-    p_vector->string = malloc(sizeof(char) * size);
-    random_init_string(p_vector->string, size - 1);
+    p_vector->string = malloc(sizeof(char) * size + 1);
+    random_init_string(p_vector->string, size);
 }
 
 void my_struct_copy(p_s_my_struct p_dest, p_s_my_struct p_src)
@@ -46,10 +46,12 @@ int my_struct_cmp(p_s_my_struct p_vector_a, p_s_my_struct p_vector_b)
     size_t len_vector_b = strlen(p_vector_b->string);
     size_t min_size = (len_vector_a < len_vector_b)? len_vector_a : len_vector_b;
 
-    for (size_t i = 0; i < min_size; ++i)
-    {
-        if (p_vector_a->string[i] > p_vector_b->string[i]) return 1;
-        else if (p_vector_a->string[i] < p_vector_b->string[i]) return -1;
-    }
-    return 0;
+    int diff = strcmp(p_vector_a->string, p_vector_b->string);
+
+    if (0 < diff)
+        return 1;
+    else if (0 > diff)
+        return -1;
+    else
+        return 0;
 }
