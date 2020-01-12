@@ -8,7 +8,7 @@
 p_s_my_struct my_struct_alloc()
 {
     p_s_my_struct strc = malloc(sizeof(s_my_struct));
-    if (strc == NULL) return NULL;
+    if (strc == NULL) exit(EXIT_FAILURE);
     strc->string = NULL;
     strc->number = 0.0;
     return strc;
@@ -25,6 +25,7 @@ void my_struct_randoms_init(p_s_my_struct p_vector)
     p_vector->number = random_double(0.0, 20.0);
     size_t size = random_size_t(0, 20);
     p_vector->string = malloc(sizeof(char) * size + 1);
+    if (p_vector->string == NULL) exit(EXIT_FAILURE);
     random_init_string(p_vector->string, size);
 }
 
@@ -33,6 +34,7 @@ void my_struct_copy(p_s_my_struct p_dest, p_s_my_struct p_src)
     if (p_dest == NULL || p_src == NULL) return;
     free(p_dest->string);
     p_dest->string = malloc(sizeof(char) * strlen(p_src->string) + 1);
+    if (p_dest->string == NULL) exit(EXIT_FAILURE);
     strcpy(p_dest->string, p_src->string);
     p_dest->number = p_src->number;
 }

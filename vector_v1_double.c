@@ -6,8 +6,9 @@
 p_s_vector_v1_double vector_v1_double_alloc(size_t n)
 {
     p_s_vector_v1_double vector = malloc(sizeof(s_vector_v1_double));
-    if (vector == NULL) return NULL;
+    if (vector == NULL) exit(EXIT_FAILURE);
     vector->elements = malloc(sizeof(double) * n);
+    if (vector->elements == NULL) exit(EXIT_FAILURE);
     for (size_t i = 0; i < n; i++) vector->elements[i] = 0.0;
     vector->size = n;
     return vector;
@@ -35,6 +36,7 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v)
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     int new_size = p_vector->size + 1;
     double* new_elements = malloc(sizeof(double) * new_size);
+    if (new_elements == NULL) exit(EXIT_FAILURE);
     int replaced = 0;
     for (size_t j = 0; j < new_size; j++) {
         if (i == j && replaced == 0) {
@@ -53,6 +55,7 @@ void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i)
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     int new_size = p_vector->size - 1;
     double* new_elements = malloc(sizeof(double) * new_size);
+    if (new_elements == NULL) exit(EXIT_FAILURE);
     int replaced = 0;
     for (size_t j = 0; j < p_vector->size; j++) {
         if (i == j) replaced++;
