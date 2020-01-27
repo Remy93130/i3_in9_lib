@@ -1,46 +1,46 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-#include "vector_v2_double.h"
+#include "vector.h"
 
-p_s_vector_v2_double vector_v2_double_alloc(size_t n)
+p_s_vector vector_alloc(size_t n)
 {
-    p_s_vector_v2_double vector = malloc(sizeof(s_vector_v2_double));
-    if (vector == NULL) exit(EXIT_FAILURE);
-    vector->elements = malloc(sizeof(double) * n * n);
-    if (vector->elements == NULL) exit(EXIT_FAILURE);
+    p_s_vector vector = malloc(sizeof(s_vector));
+    if (vector == NULL) return NULL;
+    vector->elements = malloc(sizeof(void*) * n * n);
+    if (vector->elements == NULL) return NULL;
     vector->capacity = n * n;
-    for (size_t i = 0; i < n; i++) vector->elements[i] = 0.0;
+    for (size_t i = 0; i < n; i++) vector->elements[i] = NULL;
     vector->size = n;
     return vector;
 }
 
-void vector_v2_double_free(p_s_vector_v2_double p_vector)
+void vector_free(p_s_vector p_vector)
 {
     free(p_vector->elements);
     free(p_vector);
 }
 
-void vector_v2_double_set(p_s_vector_v2_double p_vector, size_t i, double v)
+void vector_set(p_s_vector p_vector, size_t i, void* v)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     p_vector->elements[i] = v;
 }
 
-double get(p_s_vector_v2_double p_vector, size_t i)
+void* get(p_s_vector p_vector, size_t i)
 {
-    return (0 > i || i > p_vector->size)? -1.0 : p_vector->elements[i];
+    return (0 > i || i > p_vector->size)? NULL : p_vector->elements[i];
 }
 
-void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v)
+void vector_insert(p_s_vector p_vector, size_t i, void* v)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     p_vector->size += 1;
     if (p_vector->size == p_vector->capacity)
         _realloc_according_capacity(p_vector, p_vector->capacity * 2);
     int replaced = 0;
-    double element_saved = -1;
-    double element_selected;
+    void* element_saved = NULL;
+    void* element_selected;
     for (size_t j = 0; j < p_vector->size; j++) {
         element_selected = element_saved;
         element_saved = p_vector->elements[j];
@@ -50,7 +50,7 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v)
     p_vector->elements[i] = v;
 }
 
-void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i)
+void vector_erase(p_s_vector p_vector, size_t i)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
     p_vector->size -= 1;
@@ -63,41 +63,41 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i)
         _realloc_according_capacity(p_vector, p_vector->capacity / 2);
 }
 
-void _realloc_according_capacity(p_s_vector_v2_double p_vector, size_t new_capacity)
+void _realloc_according_capacity(p_s_vector p_vector, size_t new_capacity)
 {
     size_t vector_size = p_vector->size;
     p_vector->capacity = new_capacity;
-    double* new_elements = malloc(sizeof(double) * p_vector->capacity);
+    void** new_elements = malloc(sizeof(void*) * p_vector->capacity);
     if (new_elements == NULL) exit(EXIT_FAILURE);
     for (size_t j = 0; j < vector_size; j++)
         new_elements[j] = p_vector->elements[j];
-    vector_v2_double_clear(p_vector);
+    vector_clear(p_vector);
     p_vector->elements = new_elements;
     p_vector->size = vector_size;
 }
 
-void vector_v2_double_push_back(p_s_vector_v2_double p_vector, double v)
+void vector_push_back(p_s_vector p_vector, void* v)
 {
-    vector_v2_double_insert(p_vector, p_vector->size, v);
+    vector_insert(p_vector, p_vector->size, v);
 }
 
-void vector_v2_double_pop_back(p_s_vector_v2_double p_vector)
+void vector_pop_back(p_s_vector p_vector)
 {
-    vector_v2_double_erase(p_vector, p_vector->size - 1);
+    vector_erase(p_vector, p_vector->size - 1);
 }
 
-void vector_v2_double_clear(p_s_vector_v2_double p_vector)
+void vector_clear(p_s_vector p_vector)
 {
     free(p_vector->elements);
     p_vector->size = 0;
 }
 
-int vector_v2_double_empty(p_s_vector_v2_double p_vector)
+int vector_empty(p_s_vector p_vector)
 {
     return (!p_vector->size)? 1 : 0;
 }
 
-size_t vector_v2_double_size(p_s_vector_v2_double p_vector)
+size_t vector_size(p_s_vector p_vector)
 {
     return p_vector->size;
 }
