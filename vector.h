@@ -3,14 +3,18 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
+typedef void *(*t_data_alloc)();
+typedef void  (*t_data_free)(void* p_data);
+typedef void  (*t_data_cpy)(void *p_data_dst, void *p_data_src);
+
 struct struct_vector
 {
 	size_t size;
 	size_t capacity;
 	void** elements;
-	void (*malloc_function)(size_t);
-	void (*free_function)(p_s_vector);
-	void (*copy_function)(p_s_vector, p_s_vector);
+	t_data_alloc malloc_function;
+	t_data_free free_function;
+	t_data_cpy copy_function;
 };
 
 typedef struct struct_vector s_vector;
@@ -22,7 +26,7 @@ typedef s_vector * p_s_vector;
  * @param  n Le nombre d elements dans le vecteur.
  * @return   Un vecteur initialise.
  */
-p_s_vector vector_alloc(size_t n);
+p_s_vector vector_alloc(size_t n, t_data_alloc f_alloc, t_data_free f_free, t_data_cpy f_cpy);
 
 /**
  * Libere la memoire utilise par le vecteur donnee en parametre.
@@ -45,6 +49,14 @@ void vector_set(p_s_vector p_vector, size_t i, void* v);
  * @return          Le double se trouvant dans le vecteur.
  */
 void* get(p_s_vector p_vector, size_t i);
+
+/**
+ * [vector_get description]
+ * @param p_vector [description]
+ * @param i        [description]
+ * @param p_data   [description]
+ */
+void vector_get(p_s_vector p_vector, size_t i, void * p_data);
 
 /**
  * Insert une valeur a l index indique dans le vecteur.

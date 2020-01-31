@@ -3,14 +3,14 @@
 #include <stdio.h>
 
 #define MIN_ADDRESS 0
-#define MAX_ADDRESS 500
+#define MAX_ADDRESS 5000000
 
 void affiche_vector(p_s_vector vector)
 {
     printf("[");
     for (int i = 0; i < vector->size; i++) {
         if (i != 0) printf(", ");
-        printf("%.1f", get(vector, i));
+        printf("%p", get(vector, i));
     }
     printf("]\n");
 }
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	init_seed();
     // Test alloc
     printf("Test vector_alloc(5) :\n\tExpexted : [0.0, 0.0, 0.0, 0.0, 0.0]\n\tGot\t : ");
-    p_s_vector vector = vector_alloc(5);
+    p_s_vector vector = vector_alloc(5, NULL, &vector_free, NULL);
     affiche_vector(vector);
     
     // Test set

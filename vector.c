@@ -3,33 +3,41 @@
 #include <stdio.h>
 #include "vector.h"
 
-p_s_vector vector_alloc(size_t n)
+p_s_vector vector_alloc(size_t n, t_data_alloc f_alloc, t_data_free f_free, t_data_cpy f_cpy)
 {
     p_s_vector vector = malloc(sizeof(s_vector));
     if (vector == NULL) return NULL;
-    vector->elements = malloc(sizeof(void*) * n * n);
-    if (vector->elements == NULL) return NULL;
+    vector->malloc_function = f_alloc;
+    vector->free_function = f_free;
+    vector->copy_function = f_cpy;
+    // vector->elements = malloc(sizeof(void*) * n * n);
+    vector->malloc_function(); // Initialise les elements (double ou char*)
     vector->capacity = n * n;
-    for (size_t i = 0; i < n; i++) vector->elements[i] = NULL;
+    //for (size_t i = 0; i < n; i++) vector->elements[i] = NULL;
     vector->size = n;
     return vector;
 }
 
 void vector_free(p_s_vector p_vector)
 {
-    free(p_vector->elements);
+    p_vector->free_function(p_vector);
     free(p_vector);
 }
 
 void vector_set(p_s_vector p_vector, size_t i, void* v)
 {
     if (0 > i || i > p_vector->size) return; // Si le i n'est pas dans le tableau
-    p_vector->elements[i] = v;
+    p_vector->copy_function(p_vector->elements[i], v);
 }
 
 void* get(p_s_vector p_vector, size_t i)
 {
     return (0 > i || i > p_vector->size)? NULL : p_vector->elements[i];
+}
+
+void vector_get(p_s_vector p_vector, size_t i, void * p_data)
+{
+    p_vector->copy_function(p_data, p_vector->elements[i]);
 }
 
 void vector_insert(p_s_vector p_vector, size_t i, void* v)
@@ -88,7 +96,7 @@ void vector_pop_back(p_s_vector p_vector)
 
 void vector_clear(p_s_vector p_vector)
 {
-    free(p_vector->elements);
+    p_vector->free_function(p_vector);
     p_vector->size = 0;
 }
 
