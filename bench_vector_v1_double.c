@@ -110,10 +110,10 @@ int main(int argc, char const *argv[])
     }
     size_t init_size, n;
 
-    sscanf(argv[2], "%d", &init_size);
-    sscanf(argv[3], "%d", &n);
+    sscanf(argv[2], "%ld", &init_size);
+    sscanf(argv[3], "%ld", &n);
 
-    printf("\nStart bench\ntest: %s\ninit_size: %d\nn: %d\n", argv[1], init_size, n);
+    printf("\nStart bench\ntest: %s\ninit_size: %ld\nn: %ld\n", argv[1], init_size, n);
 
     p_s_vector_v1_double vector = vector_v1_double_alloc(init_size);
     for (int i = 0; i < init_size; ++i)

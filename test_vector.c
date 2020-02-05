@@ -18,7 +18,8 @@ void affiche_vector(p_s_vector vector)
 
 void* my_vector_alloc(size_t size)
 {
-    return malloc(sizeof(double) * size);
+    void* memory = malloc(sizeof(double) * size);
+    return (memory != NULL)? memory : NULL;
 }
 
 void my_vector_free(void* p_data)
@@ -75,7 +76,7 @@ int main(int argc, char *argv[])
     printf("Test vector_empty :\n\tExpected : 0\n\tGot\t : %d\n", vector_empty(vector));
 
     // Test size
-    printf("Test vector_size :\n\tExpected : 5\n\tGot\t : %d\n", vector_size(vector));
+    printf("Test vector_size :\n\tExpected : 5\n\tGot\t : %ld\n", vector_size(vector));
 
     vector_free(vector);
 }

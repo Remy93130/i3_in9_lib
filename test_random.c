@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
 {
     printf("Random double (-1, 1)\n\t%f\n", random_double(-1, 1));
     printf("Random float (0, 10)\n\t%f\n", random_float(0, 10));
-    printf("Random size_t (0, 10)\n\t%d\n", random_size_t(0, 10));
+    printf("Random size_t (0, 10)\n\t%ld\n", random_size_t(0, 10));
     printf("Random int (0, 100)\n\t%d\n", random_int(0, 100));
     printf("Random uchar (0, 100)\n\t%d\n", random_uchar(0, 100));
 
