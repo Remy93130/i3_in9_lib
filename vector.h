@@ -3,7 +3,7 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
-typedef void *(*t_data_alloc)();
+typedef void *(*t_data_alloc)(size_t size);
 typedef void  (*t_data_free)(void* p_data);
 typedef void  (*t_data_cpy)(void *p_data_dst, void *p_data_src);
 
@@ -12,9 +12,9 @@ struct struct_vector
 	size_t size;
 	size_t capacity;
 	void** elements;
-	t_data_alloc malloc_function;
-	t_data_free free_function;
-	t_data_cpy copy_function;
+	t_data_alloc function_malloc;
+	t_data_free function_free;
+	t_data_cpy function_copy;
 };
 
 typedef struct struct_vector s_vector;

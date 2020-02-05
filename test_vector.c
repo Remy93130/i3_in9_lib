@@ -1,6 +1,7 @@
 #include "vector.h"
 #include "random.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MIN_ADDRESS 0
 #define MAX_ADDRESS 5000000
@@ -15,12 +16,27 @@ void affiche_vector(p_s_vector vector)
     printf("]\n");
 }
 
+void* my_vector_alloc(size_t size)
+{
+    return malloc(sizeof(double) * size);
+}
+
+void my_vector_free(void* p_data)
+{
+    free(p_data);
+}
+
+void my_vector_copy(void* dst, void* src)
+{
+    src = dst;
+}
+
 int main(int argc, char *argv[])
 {
 	init_seed();
     // Test alloc
     printf("Test vector_alloc(5) :\n\tExpexted : [0.0, 0.0, 0.0, 0.0, 0.0]\n\tGot\t : ");
-    p_s_vector vector = vector_alloc(5, NULL, &vector_free, NULL);
+    p_s_vector vector = vector_alloc(5, &my_vector_alloc, &my_vector_free, &my_vector_copy);
     affiche_vector(vector);
     
     // Test set
@@ -59,7 +75,7 @@ int main(int argc, char *argv[])
     printf("Test vector_empty :\n\tExpected : 0\n\tGot\t : %d\n", vector_empty(vector));
 
     // Test size
-    printf("Test vector_empty :\n\tExpected : 5\n\tGot\t : %d\n", vector_size(vector));
+    printf("Test vector_size :\n\tExpected : 5\n\tGot\t : %d\n", vector_size(vector));
 
     vector_free(vector);
 }
