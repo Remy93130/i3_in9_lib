@@ -1,4 +1,4 @@
-all : test_vector_v1_double test_random bench_vector_v1_double test_vector_v2_double test_my_struct test_vector
+all : test_vector_v1_double test_random bench_vector_v1_double test_vector_v2_double test_my_struct test_vector bench_vector
 
 # Vector V1
 
@@ -39,11 +39,17 @@ bench_vector_v2_double.o : bench_vector_v2_double.c
 test_vector : test_vector.o vector.o random.o
 	gcc vector.o test_vector.o random.o -Wall -g -o test_vector
 
+bench_vector : bench_vector.o vector.o random.o
+	gcc bench_vector.o vector.o random.o -Wall -g -o bench_vector
+
 test_vector.o : test_vector.c
 	gcc test_vector.c -Wall -c -g -o test_vector.o
 
 vector.o : vector.c vector.h
 	gcc vector.c -Wall -c -g -o vector.o
+
+bench_vector.o : bench_vector.c
+	gcc bench_vector.c -c -g -o bench_vector.o
 
 # Random
 
@@ -73,4 +79,5 @@ clean :
 		test_random bench_vector_v1_double \
 		test_vector_v2_double bench_vector_v2_double \
 		test_my_struct \
-		test_vector
+		test_vector \
+		bench_vector
