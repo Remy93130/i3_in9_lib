@@ -1,4 +1,4 @@
-all : test_vector_v1_double test_random bench_vector_v1_double test_vector_v2_double test_my_struct test_vector bench_vector
+all : test_vector_v1_double test_random bench_vector_v1_double test_vector_v2_double bench_vector_v2_double test_my_struct test_vector bench_vector
 
 # Vector V1
 
